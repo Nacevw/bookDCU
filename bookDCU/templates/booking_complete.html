@@ -1,0 +1,20 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}Success - bookDCU{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+
+<body>
+    <div class="col-sm-3 my-1 mx-auto text-center">
+        <img id="success-img" src="{% static '/img/success-yellow.svg' %}" alt="success-tick">
+        <h1 class="title">You're all set!</h1>
+        <h5 class="text-muted text-center">Don't forget to verify your booking when you arrive in the room!</h5>
+        <p>
+            You can see all upcoming bookings by clicking the button below
+        </p>
+        <a href="/upcoming" class="btn btn-primary" id="view-bkg-btn">View Upcoming Bookings</a>
+    </div>
+</body>
+{% include 'footer.html' %}
+{% endblock%}
