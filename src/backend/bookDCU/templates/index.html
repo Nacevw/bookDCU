@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}bookDCU - Home{% endblock %}
+{% block content %}
+{% load socialaccount %}
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+
+<body>
+    <div class="hero-image">
+        <h1 class="hero-text">Welcome, {{user.first_name|capfirst}}</h1>
+    </div>
+    <br>
+    <div class="container my-5">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                <h3>Enter a date and time to make your booking</h3>
+                <form id="booking-form" method="POST" action=".">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="date" class="form-control" id="date" name="date" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="start_time">From</label>
+                                <input type="time" class="form-control" id="start_time" name="start_time" value="09:00"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="end_time">To</label>
+                                <input type="time" class="form-control" id="end_time" name="end_time" value="10:00"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <button type="submit" id="dateform-submit" class="btn btn-primary">Book Now!</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <h3 id="bookDCU-step-title">bookDCU couldn't be simpler!</h3>
+        <p id="bookDCU-step-desc">bookDCU enables students to reserve a seat within a lab so they have a space to
+            complete their projects or assignments. <br>Booking your seat can be done in 4 simple steps</p>
+
+        <ul class="nav nav-steps flex-wrap">
+            <li class="nav-item mb-3 mb-md-0">
+                <div class="step-card card p-4">
+                    <div class="step-number">1</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Choose Date & Time</h5>
+                        <p class="card-text">Select the date and time you want to book for above.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item mb-3 mb-md-0">
+                <div class="step-card card p-4">
+                    <div class="step-number">2</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Choose your room & seat</h5>
+                        <p class="card-text">Select your prefered lab and seat in the lab and confirm your choice.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item mb-3 mb-md-0">
+                <div class="step-card card p-4">
+                    <div class="step-number">3</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Confirm your name</h5>
+                        <p class="card-text">Confirm your name as it appears on your DCU Google account.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item mb-3 mb-md-0">
+                <div class="step-card card p-4">
+                    <div class="step-number">4</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Verify your booking</h5>
+                        <p class="card-text">At the time of your booking, select the booking to verify and upload an
+                            image of the QR code at your seat.</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    {% include 'footer.html' %}
+</body>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}Seat Selection - bookDCU{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+<body>
+    <h1 class="title">It's Time to Choose Your Seat</h1>
+    <h5 class="text-muted text-center">{{pretty_date}} • {{start_time}} to {{end_time}}</h5>
+
+    <div class="room-container">
+        <h3 class="title" style="padding-top: 0;">Select a Room:</h3>
+        <select id="room">
+            {% for room in rooms %}
+            <option value="{{room.id}}">{{room.id}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <h5 class="text-muted text-center" id ="capacity-display"></h5>
+    <h5 class="text-muted text-center">All rooms have a projector. Each seat has a PC and sockets for charging.</h5>
+
+    <ul class="showcase">
+        <li>
+            <div class="example-available"></div>
+            <small>Available</small>
+        </li>
+        <li>
+            <div class="example-yours"></div>
+            <small>Selected</small>
+        </li>
+        <li>
+            <div class="example-unavailable"></div>
+            <small>Unavailable</small>
+        </li>
+    </ul>
+
+    <div class="container" id="seatmap-container">
+        <h6 class="title text-muted text-center">TOP OF ROOM</h6>
+    </div>
+
+    <div class="cta">
+        <button class="book-btn btn btn-primary">Book This Seat</button>
+    </div>
+
+    <script src="{% static '/js/script.js' %}"></script>
+    <!-- pass date, start_time and end_time to backend.js -->
+    <script>
+        var date = "{{date}}";
+        var start_time = "{{start_time}}";
+        var end_time = "{{end_time}}";
+    </script>
+    <script src="{% static '/js/backend.js'%}"></script>
+
+    {% include 'footer.html' %}
+</body>
+
+{%endblock%}

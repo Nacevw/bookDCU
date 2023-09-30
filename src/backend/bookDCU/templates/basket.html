@@ -1,0 +1,54 @@
+<!-- THIS FILE MAY BE REDUNDANT -->
+
+{% extends 'base.html' %}
+
+{% block title %}Confirm Booking - bookDCU{% endblock %}
+
+
+{% block content %}
+
+{% if empty %}
+    <p>You have not selected anything to book.</p>
+{% else %}
+<h1>Bookings to be Made</h1>
+
+	<table>
+        {% for item in sbi %}
+		<tbody>
+			<tr>
+				<td><h3>{{item.room_id.id}} - {{item.room_id.campus_choice}}, {{item.room_id.building}} Building</h3></td>
+			</tr>
+            <tr>
+                {% comment %} <td><img src="{{item.room_id.seatmap_image.url}}" alt="{{item.room_id.id}}"></td> {% endcomment %}
+                {% comment %} <td><a href="/removeitem/{{item.id}}">Remove</a></td> {% endcomment %}
+            </tr>
+            <tr>
+                <td><p>Seat Number: {{item.seat_number}}</p></td>
+            </tr>
+            <tr>
+                <td><p>Starts: {{item.start_time}}</p></td>
+            </tr>
+            <tr>
+                <td><p>Ends: {{item.end_time}}</p></td>
+            </tr>
+            <tr>
+                <td><p>Duration: {{item.start_time|timesince:item.end_time}}</p></td>
+            </tr>
+            <tr>
+                <td><a href="/removeitem/{{item.id}}" class="btn btn-danger">Remove</a></td>
+            </tr>
+		</tbody>
+        {% endfor %}
+	</table>
+{% endif %}
+<a href="/bookingform" class="btn btn-primary">Confirm these bookings</a>
+
+<form method="POST", action="/bookingform/">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <button class="btn btn-primary" type="submit">Confirm</button>
+</form>
+
+
+
+{% endblock %}

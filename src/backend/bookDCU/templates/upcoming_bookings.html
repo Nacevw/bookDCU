@@ -1,0 +1,60 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}Upcoming Bookings - bookDCU{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+
+<body>
+
+    <h1 class="title">Upcoming Bookings</h1>
+    {% if bookings|length == 1 %}
+    <h5 class="text-muted text-center">You have {{bookings|length}} upcoming booking</h5>
+    {% else %}
+    <h5 class="text-muted text-center">You have {{bookings|length}} upcoming bookings</h5>
+    {% endif %}    <p class="text-muted text-center">The most recently-made booking is displayed last</p>
+
+    {% for booking in bookings %}
+
+    <div class="card shadow-sm" id="booking-card">
+        <div class="card-body" id="booking-card-body">
+            <h5 class="card-title">Booking Reference: {{booking.id}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Booked on {{booking.date_booked}}</h6>
+            <!-- <p class="card-text">Name: {{booking.name}}</p> -->
+            <p class="card-text">Room: {{booking.room_id.id}}</p>
+            <p class="card-text">Seat #: {{booking.seat_number}}</p>
+            <p class="card-text">Start time: {{booking.start_time}}</p>
+            <p class="card-text">End time: {{booking.end_time}}</p>
+            <p class="card-text">Duration: {{ booking.start_time|timesince:booking.end_time }}</p>
+
+            {% if booking.is_verified == True %}
+            <p class="card-text"><strong>Booking Verified</strong></p>
+            <!-- else -->
+            {% else %}
+            <p class="card-text"><strong>Booking Not Verified</strong></p>
+            {% endif %}
+
+            <a href="/resend-booking/{{booking.id}}" class="btn btn-primary bkg-action-button">Resend Confirmation
+                Email</a>
+            <a href="/cancel-booking/{{booking.id}}" class="btn btn-danger bkg-action-button">Cancel Booking</a>
+
+            <!-- if the booking is not verified -->
+            {% if booking.is_verified == False %}
+
+                <label for="cameraFileInput" class="d-md-block">
+                    <span id="verify-button" data-bkgid="{{booking.id}}" class="scan-btn btn btn-success bkg-action-btn">Verify
+                        Booking</span>
+
+                    <!-- The hidden file `input` for opening the native camera -->
+                    <input id="cameraFileInput" type="file" accept="image/*" />
+                </label>
+            {% endif %}
+
+        </div>
+    </div>
+    {% endfor %}
+    {% include 'footer.html' %}
+
+</body>
+<script src="{% static '/js/verify_qrcode.js'%}"></script>
+{% endblock %}

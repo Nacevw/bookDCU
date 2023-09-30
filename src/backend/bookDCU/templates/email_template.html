@@ -1,0 +1,22 @@
+{% block content %}
+
+    <p>Dear {{ name }},</p>
+    <br>
+    <p>Your booking has been {{ booking_status }}. Please find the details below</p>
+    <p>Please note that you must <strong>verify</strong> your booking when you turn up by logging into your account and selecting "Upcoming Bookings". Please tap the verify button and scan the QR code next to your seat.</p>
+    <br>
+    <ul>
+        <li><strong>Booking Reference: </strong>{{ booking_id }}</li>
+        <li><strong>Starts: </strong>{{ start_time }}</li>
+        <li><strong>Ends: </strong>{{ end_time }}</li>
+        <li><strong>Booking Duration: </strong>{{ start_time|timesince:end_time }}</li>
+        <li><strong>Room #: </strong>{{ room }} — {{ building }} Building, {{ campus }}</li>
+        <li><strong>Seat #: </strong>{{ seat }}</li>
+        <li><strong>Booking Status: </strong>{{ booking_status }}</li>
+    </ul>
+    <br>
+    <p>Thank you for using our service.</p>
+    <p>Best Regards,</p>
+    <p>The bookDCU team</p>
+
+{% endblock %}

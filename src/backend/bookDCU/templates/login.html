@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+<!-- {% load static %} -->
+
+{% block title %}bookDCU - Login{%  endblock %}
+{%  block content %}
+{% load socialaccount %}
+
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+
+	<body>		
+		<section id="login-screen" class="vh-100">
+	
+			<div class="container py-5 h-100">
+				
+				<div class="row d-flex justify-content-center align-items-center h-100">
+					<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+						<div id="login-modal" class="card shadow-lg" style="border-radius: 1rem;">
+							<div class="card-body p-5 text-center">
+								<img src="{% static '/img/logo.png' %}" alt="bookDCU" width="100" height="100s">
+								<h3 class="mb-5">Welcome to bookDCU</h3>
+									<p>Please click below to login to bookDCU with your DCU credentials.</p>
+									<a href ="https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=85703386568-198tvo18q7r5ag0vh71ldecponauvfb1.apps.googleusercontent.com&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Faccounts%2Fgoogle%2Flogin%2Fcallback%2F&scope=profile%20email&response_type=code&state=jqdOxSYxuYYf&access_type=online&service=lso&o2v=2&flowName=GeneralOAuthFlow" class="btn btn-primary btn-lg btn-block">Login with DCU</a>
+									<br>
+									<br>
+									<a href="/accounts/login">Local Login</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		{% include "footer.html" %}
+	</body>
+{%  endblock %}

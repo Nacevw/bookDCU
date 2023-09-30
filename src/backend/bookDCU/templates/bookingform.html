@@ -1,0 +1,39 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}Confrim Booking - bookDCU{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+
+
+<body>
+  <h1 class="title">Confirm Booking</h1>
+  <p class="text-muted text-center">Please confirm your booking details below.</p>
+  
+  {% for item in sbi %}
+  <div class="card shadow-lg" id="booking-details">
+    <div class="card-body">
+      <h5 class="card-title">Booking Details</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Room {{item.room_id.id}} — {{item.room_id.campus_choice}}, {{item.room_id.building}} Building</h6>
+      <p class="card-text">Start Time: {{item.start_time}}</p>
+      <p class="card-text">End Time: {{item.end_time}}</p>
+      <p class="card-text">Duration: {{ item.start_time|timesince:item.end_time }}</p>
+      <p class="card-text">Seat #: {{item.seat_number}}</p>
+
+      {% if error %}
+      <div class="alert alert-danger" role="alert">
+        Please enter your name as it appears in your DCU account.
+      {% endif %}
+  
+      <form method="POST", action=".">
+          {% csrf_token %}
+          {{ form.as_table }}
+          <button type="submit" class="btn btn-success">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+  
+</body>
+{% include 'footer.html' %}
+{% endblock %}

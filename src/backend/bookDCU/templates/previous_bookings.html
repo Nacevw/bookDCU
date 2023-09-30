@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}Previous Bookings - bookDCU{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+<body>
+
+    <h1 class="title">Previous Bookings</h1>
+    {% if bookings|length == 1 %}
+    <h5 class="text-muted text-center">You have {{bookings|length}} previous booking</h5>
+    {% else %}
+    <h5 class="text-muted text-center">You have {{bookings|length}} previous bookings</h5>
+    {% endif %}
+    <p class="text-muted text-center">The most recently-made booking is displayed last</p>
+
+    {% for booking in bookings %}
+    <div class="card shadow-sm" id="booking-card">
+        <div class="card-body" id="booking-card-body">
+            <h5 class="card-title">Booking Reference: {{booking.id}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Booked on {{booking.date_booked}}</h6>
+            <p class="card-text">Room: {{booking.room_id.id}}</p>
+            <p class="card-text">Seat #: {{booking.seat_number}}</p>
+            <p class="card-text">Start time: {{booking.start_time}}</p>
+            <p class="card-text">End time: {{booking.end_time}}</p>
+            <p class="card-text">Duration: {{ booking.start_time|timesince:booking.end_time }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    {% include 'footer.html' %}
+</body>
+{% endblock %}
